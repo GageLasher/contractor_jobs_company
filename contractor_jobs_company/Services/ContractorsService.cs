@@ -22,6 +22,14 @@ namespace contractor_jobs_company.Services
             return _contractorsRepo.GetAll();
         }
 
+        internal ContractorViewModel GetViewModelById(int contractorId)
+        {
+            return _contractorsRepo.GetViewModelById(contractorId);
+        }
+
+
+
+
         internal Contractor GetById(int id)
         {
             return _contractorsRepo.GetById(id);

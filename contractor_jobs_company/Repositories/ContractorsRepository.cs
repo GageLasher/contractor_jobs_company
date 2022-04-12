@@ -37,6 +37,12 @@ namespace contractor_jobs_company.Repositories
             return _db.Query<Contractor>(sql).ToList();
         }
 
+        internal ContractorViewModel GetViewModelById(int id)
+        {
+            string sql = "SELECT * FROM contractors WHERE id = @id;";
+            return _db.Query<ContractorViewModel>(sql, new { id }).FirstOrDefault();
+        }
+
         internal string Remove(int id)
         {
             string sql = @"

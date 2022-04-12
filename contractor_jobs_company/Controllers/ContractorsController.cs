@@ -10,11 +10,14 @@ namespace contractor_jobs_company.Controllers
     public class ContractorsController : ControllerBase
     {
         private readonly ContractorsService _cs;
+        private readonly JobsService _js;
 
-        public ContractorsController(ContractorsService cs)
+        public ContractorsController(ContractorsService cs, JobsService js)
         {
-            this._cs = cs;
+            _cs = cs;
+            _js = js;
         }
+
         [HttpPost]
         public ActionResult<Contractor> Create([FromBody] Contractor data)
         {
@@ -68,6 +71,19 @@ namespace contractor_jobs_company.Controllers
             catch (System.Exception e)
             {
 
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpGet("{id}/jobs")]
+        public ActionResult<List<ContractorViewModel>> GetJobsByContractorId(int id)
+        {
+            try
+            {
+                List<ContractorViewModel> jobs = _js.JetJobsByContractorId(id);
+                return Ok(jobs);
+            }
+            catch (System.Exception e)
+            {
                 return BadRequest(e.Message);
             }
         }
