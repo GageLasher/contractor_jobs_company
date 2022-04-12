@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using contractor_jobs_company.Models;
 using Dapper;
 
@@ -39,11 +40,11 @@ namespace contractor_jobs_company.Repositories
             JOIN company company ON company.id = j.companyId
             WHERE j.contractorId = @id;
             ";
-            List<ContractorViewModel> contractors = _db.Query<Contractor, Job, Company, ContractorViewModel>(sql, (c, j, company) =>
+            List<ContractorViewModel> contractors = _db.Query<ContractorViewModel, Job, Company, ContractorViewModel>(sql, (c, j, company) =>
             {
                 // NOTE assemble the view model
-                j.ContractorId = c.Id;
-                j.CompanyId = company.Id;
+                c.JobId = j.Id;
+
                 return c;
             }, new { id }).ToList();
             return contractors;
