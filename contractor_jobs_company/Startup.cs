@@ -39,6 +39,8 @@ namespace contractor_jobs_company
             services.AddTransient<CompaniesService>();
             services.AddTransient<ContractorsRepository>();
             services.AddTransient<ContractorsService>();
+            services.AddTransient<JobsRepository>();
+            services.AddTransient<JobsService>();
         }
 
         private void ConfigureCors(IServiceCollection services)

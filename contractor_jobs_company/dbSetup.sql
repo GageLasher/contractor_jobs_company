@@ -14,3 +14,11 @@ CREATE TABLE IF NOT EXISTS contractors(
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name TEXT
 ) default charset utf8 COMMENT '';
+CREATE TABLE IF NOT EXISTS jobs(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  companyId INT,
+  contractorId INT,
+  FOREIGN KEY (companyId) REFERENCES companies(id) ON DELETE CASCADE,
+  FOREIGN KEY (contractorId) REFERENCES contractors(id) ON DELETE CASCADE
+) default charset utf8 COMMENT '';
+DROP TABLE jobs;

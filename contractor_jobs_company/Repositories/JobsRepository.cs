@@ -37,7 +37,7 @@ namespace contractor_jobs_company.Repositories
                 company.*
             FROM jobs j
             JOIN contractors c ON c.id =j.contractorId
-            JOIN company company ON company.id = j.companyId
+            JOIN companies company ON company.id = j.companyId
             WHERE j.contractorId = @id;
             ";
             List<ContractorViewModel> contractors = _db.Query<ContractorViewModel, Job, Company, ContractorViewModel>(sql, (c, j, company) =>
