@@ -1,17 +1,10 @@
- using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using MySqlConnector;
 using contractor_jobs_company.Repositories;
@@ -39,9 +32,13 @@ namespace contractor_jobs_company
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "contractor_jobs_company", Version = "v1" });
             });
             services.AddScoped<IDbConnection>(x => CreateDbConnection());
-            
+
             services.AddScoped<AccountsRepository>();
             services.AddScoped<AccountService>();
+            services.AddTransient<CompaniesRepository>();
+            services.AddTransient<CompaniesService>();
+            services.AddTransient<ContractorsRepository>();
+            services.AddTransient<ContractorsService>();
         }
 
         private void ConfigureCors(IServiceCollection services)
@@ -94,10 +91,10 @@ namespace contractor_jobs_company
             }
 
             app.UseHttpsRedirection();
-            
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
-            
+
             app.UseRouting();
 
             app.UseAuthentication();
